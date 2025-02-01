@@ -23,7 +23,7 @@ jobs:
       - name: Build Java Application with Maven
         run: |
           cd DevOps-Project-01/ecommerce
-          mvn clean install
+          mvn clean package
           ls -l target/
 
       - name: Upload WAR to S3
