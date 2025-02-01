@@ -28,16 +28,15 @@ jobs:
 
       - name: Build Java Application with Maven
         run: |
-          cd DevOps-Project-01/computer-shop-back-main
-          chmod +x ./mvnw  # 为 mvnw 添加执行权限
-          ./mvnw clean install
+          cd DevOps-Project-01/shop-system-master
+          mvn clean install
           ls -l
 
       - name: Upload WAR to S3
         run: |
           pwd
           ls -l
-          cd DevOps-Project-01/computer-shop-back-main
+          cd DevOps-Project-01/shop-system-master
           aws s3 cp ./target/ROOT.war s3://devops-lab022/app.war
 
       - name: Deploy to Tomcat (Private Subnet) via SSM
