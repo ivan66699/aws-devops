@@ -27,7 +27,7 @@ jobs:
 
       - name: Upload WAR to S3
         run: |
-          aws s3 cp backend/target/app.war s3://my-deploy-bucket/app.war
+          aws s3 cp backend/target/app.war s3://devops-lab022/app.war
 
       - name: Deploy to Tomcat (Private Subnet) via SSM
         run: |
