@@ -13,13 +13,6 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Setup Java
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'temurin'  # OpenJDK 发行版
-          java-version: '11'       # 这里可以改成 8、11、17
-          cache: 'maven'        
-
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
@@ -29,7 +22,7 @@ jobs:
 
       - name: Build Java Application with Maven
         run: |
-          cd DevOps-Project-01/shopizer-2.7.0
+          cd DevOps-Project-01/shopizer-main
           mvn clean install
           ls -l sm-shop/target/
 
@@ -37,8 +30,8 @@ jobs:
         run: |
           pwd
           ls -l
-          cd DevOps-Project-01/shopizer-2.7.0
-          aws s3 cp sm-shop/target/ROOT s3://devops-lab022/app.war
+          cd DevOps-Project-01/shopizer-main
+          aws s3 cp sm-shop/target/ROOT.war s3://devops-lab022/app.war
 
       - name: Deploy to Tomcat (Private Subnet) via SSM
         run: |
