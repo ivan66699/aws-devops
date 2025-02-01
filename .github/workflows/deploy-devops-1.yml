@@ -37,11 +37,11 @@ jobs:
           pwd
           ls -l
           cd DevOps-Project-01/shop-system-master
-          aws s3 cp ./target/ROOT.war s3://devops-lab022/app.war
+          aws s3 cp ./target/SSM.war s3://devops-lab022/ROOT.war
 
       - name: Deploy to Tomcat (Private Subnet) via SSM
         run: |
           aws ssm send-command \
             --document-name "AWS-RunShellScript" \
             --targets "Key=instanceIds,Values=${{ secrets.TOMCAT_INSTANCE_ID }}" \
-            --parameters 'commands=["aws s3 cp s3://devops-lab022/app.war /opt/tomcat/webapps/ROOT.war", "systemctl restart tomcat"]'
+            --parameters 'commands=["aws s3 cp s3://devops-lab022/ROOT.war /opt/tomcat/webapps/ROOT.war", "systemctl restart tomcat"]'
