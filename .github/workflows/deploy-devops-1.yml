@@ -23,7 +23,7 @@ jobs:
       - name: Build Java Application with Maven
         run: |
           cd DevOps-Project-01/shopizer-2.7.0
-          mvn clean package
+          mvn clean install
           ls -l sm-shop/target/
 
       - name: Upload WAR to S3
