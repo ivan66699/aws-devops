@@ -22,16 +22,16 @@ jobs:
 
       - name: Build Java Application with Maven
         run: |
-          cd DevOps-Project-01/ecommerce
+          cd DevOps-Project-01/shopizer-2.7.0
           mvn clean package
-          ls -l target/
+          ls -l sm-shop/target/
 
       - name: Upload WAR to S3
         run: |
           pwd
           ls -l
-          cd DevOps-Project-01/ecommerce
-          aws s3 cp target/dptweb-1.0.war s3://devops-lab022/app.war
+          cd DevOps-Project-01/shopizer-2.7.0
+          aws s3 cp sm-shop/target/ROOT s3://devops-lab022/app.war
 
       - name: Deploy to Tomcat (Private Subnet) via SSM
         run: |
