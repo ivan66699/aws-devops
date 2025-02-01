@@ -13,10 +13,10 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Set up JDK 11 (using Temurin)
+      - name: Set up JDK 17 (using Temurin)
         uses: actions/setup-java@v2
         with:
-          java-version: '16'
+          java-version: '17'
           distribution: 'temurin'  # 使用 Temurin 作为 JDK 版本   
 
       - name: Configure AWS Credentials
