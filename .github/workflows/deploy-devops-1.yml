@@ -34,4 +34,4 @@ jobs:
           aws ssm send-command \
             --document-name "AWS-RunShellScript" \
             --targets "Key=instanceIds,Values=${{ secrets.TOMCAT_INSTANCE_ID }}" \
-            --parameters 'commands=["aws s3 cp s3://my-deploy-bucket/app.war /opt/tomcat/webapps/ROOT.war", "systemctl restart tomcat"]'
+            --parameters 'commands=["aws s3 cp s3://devops-lab022/app.war /opt/tomcat/webapps/ROOT.war", "systemctl restart tomcat"]'
