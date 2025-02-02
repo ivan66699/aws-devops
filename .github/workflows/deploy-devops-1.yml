@@ -30,7 +30,6 @@ jobs:
         run: |
           cd DevOps-Project-01/shopping-cart-master
           mvn clean install
-          ls -l
 
       - name: Upload WAR to S3
         run: |
