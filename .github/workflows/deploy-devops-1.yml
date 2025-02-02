@@ -13,10 +13,10 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Set up JDK 16 (using Temurin)
+      - name: Set up JDK 11 (using Temurin)
         uses: actions/setup-java@v2
         with:
-          java-version: '16'
+          java-version: '11'
           distribution: 'temurin'  # 使用 Temurin 作为 JDK 版本   
 
       - name: Configure AWS Credentials
@@ -28,7 +28,7 @@ jobs:
 
       - name: Build Java Application with Maven
         run: |
-          cd DevOps-Project-01/shop-system-master
+          cd DevOps-Project-01/shopping-cart-master
           mvn clean install
           ls -l
 
@@ -36,7 +36,7 @@ jobs:
         run: |
           pwd
           ls -l
-          cd DevOps-Project-01/shop-system-master
+          cd DevOps-Project-01/shopping-cart-master
           aws s3 cp ./target/SSM.war s3://devops-lab022/ROOT.war
 
       - name: Deploy to Tomcat (Private Subnet) via SSM
