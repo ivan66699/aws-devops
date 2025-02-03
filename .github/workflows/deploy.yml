@@ -40,7 +40,6 @@ jobs:
       - name: Upload WAR to S3
         run: |
           pwd
-          ls -l
           cd DevOps-Project-01/shopping-cart-master
           aws s3 cp ./target/shopping-cart-0.0.1-SNAPSHOT.war s3://devops-lab022/ROOT.war
 
