@@ -24,7 +24,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ap-southeast-1
+          aws-region: ap-northeast-1a
 
       - name: Replace database credentials in application.properties
         run: |
@@ -48,4 +48,4 @@ jobs:
           aws ssm send-command \
             --document-name "AWS-RunShellScript" \
             --targets "Key=instanceIds,Values=${{ secrets.TOMCAT_INSTANCE_ID }}" \
-            --parameters 'commands=["aws s3 cp s3://devops-lab022/ROOT.war /opt/tomcat/webapps/ROOT.war", "systemctl restart tomcat"]'
+            --parameters 'commands=["aws s3 cp s3://ivan66699-lab22/ROOT.war /opt/tomcat/webapps/ROOT.war", "systemctl restart tomcat"]'
