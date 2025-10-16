@@ -13,11 +13,11 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Set Up JDK 11 (using Temurin)
+      - name: Set up JDK 11 (using Temurin)
         uses: actions/setup-java@v2
         with:
           java-version: '11'
-          distribution: 'temurin' # 使用 Temurin 作為 JDK 版本
+          distribution: 'temurin'  # 使用 Temurin 作为 JDK 版本   
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -28,11 +28,10 @@ jobs:
 
       - name: Replace database credentials in application.properties
         run: |
-          # 注意：此處 's/XXX/YYY|g' 中的 |g 可能是輸入錯誤，常見的 sed 格式是 s/XXX/YYY/g
-          sed -i 's/${RDS_HOST}/${{ secrets.RDS_HOST }}|g' DevOps-Project-01/shopping-cart-master/src/application.properties
-          sed -i 's/${RDS_PASSWORD}/${{ secrets.RDS_PASSWORD }}|g' DevOps-Project-01/shopping-cart-master/src/application.properties
-          sed -i 's/${RDS_USER}/${{ secrets.RDS_USER }}|g' DevOps-Project-01/shopping-cart-master/src/application.properties
-
+          sed -i 's|${RDS_HOST}|${{ secrets.RDS_HOST }}|g' DevOps-Project-01/shopping-cart-master/src/application.properties
+          sed -i 's|${RDS_PASSWORD}|${{ secrets.RDS_PASSWORD }}|g' DevOps-Project-01/shopping-cart-master/src/application.properties
+          sed -i 's|${RDS_USER}|${{ secrets.RDS_USER }}|g' DevOps-Project-01/shopping-cart-master/src/application.properties
+         
       - name: Build Java Application with Maven
         run: |
           cd DevOps-Project-01/shopping-cart-master
@@ -41,13 +40,12 @@ jobs:
       - name: Upload WAR to S3
         run: |
           pwd
-          ls -l
           cd DevOps-Project-01/shopping-cart-master
           aws s3 cp ./target/shopping-cart-0.0.1-SNAPSHOT.war s3://devops-lab022/ROOT.war
 
       - name: Deploy to Tomcat (Private Subnet) via SSM
         run: |
           aws ssm send-command \
-          --document-name "AWS-RunShellScript" \
-          --targets "Key=InstanceIds,Values=${{ secrets.TOMCAT_INSTANCE_ID }}" \
-          --parameters 'commands=["aws s3 cp s3://devops-lab022/ROOT.war /opt/tomcat/webapps/ROOT.war", "systemctl restart tomcat"]'
+            --document-name "AWS-RunShellScript" \
+            --targets "Key=instanceIds,Values=${{ secrets.TOMCAT_INSTANCE_ID }}" \
+            --parameters 'commands=["aws s3 cp s3://devops-lab022/ROOT.war /opt/tomcat/webapps/ROOT.war", "systemctl restart tomcat"]'
