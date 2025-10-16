@@ -41,7 +41,7 @@ jobs:
         run: |
           pwd
           cd DevOps-Project-01/shopping-cart-master
-          aws s3 cp ./target/shopping-cart-0.0.1-SNAPSHOT.war s3://devops-lab022/ROOT.war
+          aws s3 cp ./target/shopping-cart-0.0.1-SNAPSHOT.war s3://ivan66699-lab22/ROOT.war
 
       - name: Deploy to Tomcat (Private Subnet) via SSM
         run: |
