@@ -46,6 +46,15 @@ jobs:
       - name: Deploy to Tomcat (Private Subnet) via SSM
         run: |
           aws ssm send-command \
-            --document-name "AWS-RunShellScript" \
-            --targets "Key=instanceIds,Values=${{ secrets.TOMCAT_INSTANCE_ID }}" \
-            --parameters 'commands=["aws s3 cp s3://ivan66699-lab22/ROOT.war /opt/tomcat/webapps/ROOT.war", "systemctl restart tomcat"]'
+          --document-name "AWS-RunShellScript" \
+          --targets "Key=instanceIds,Values=${{ secrets.TOMCAT_INSTANCE_ID }}" \
+          --comment "Deploy WAR and restart Tomcat" \
+          --parameters 'commands=[
+          "sudo apt update -y",
+          "sudo apt install -y awscli",
+          "sudo aws s3 cp s3://ivan66699-lab22/ROOT.war /opt/tomcat/webapps/ROOT.war",
+          "sudo systemctl restart tomcat",
+          "ls -l /opt/tomcat/webapps"
+          ]'
+
+      
